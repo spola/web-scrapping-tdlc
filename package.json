@@ -1,0 +1,14 @@
+{
+    "name": "node-web-scrape",
+    "version": "0.0.1",
+    "description": "Descargar la información del TDLC",
+    "author": "Sergio Pola",
+    "dependencies": {
+        "express": "latest",
+        "request": "latest",
+        "cheerio": "latest",
+        "grunt": "^0.4.5",
+        "grunt-concat-json": "0.0.6",
+        "path": "^0.11.14"
+    }
+}
