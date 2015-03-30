@@ -1,4 +1,5 @@
-/*global module, require*/
+/*jslint plusplus: true*/
+/*global module, require, console*/
 
 var convertir = require("./convertir.js"),
     path = require("path"),
@@ -39,8 +40,12 @@ module.exports = function (grunt) {
         }
 
         grunt.file.recurse("/Desarrollo/tdlc-wordpress/contensiosas/", function (abspath, rootdir, subdir, filename) {
-            if (!grunt.file.isFile(abspath)) return;
-            if (!endsWith(abspath, ".json")) return;
+            if (!grunt.file.isFile(abspath)) {
+                return;
+            }
+            if (!endsWith(abspath, ".json")) {
+                return;
+            }
 
             archivos.push(Number(path.basename(abspath, ".json")));
         });
@@ -71,7 +76,7 @@ module.exports = function (grunt) {
                 }
 
                 total--;
-                if (total == 0) {
+                if (total === 0) {
                     done();
                 }
             });
@@ -98,7 +103,7 @@ module.exports = function (grunt) {
                 }
 
                 total--;
-                if (total == 0) {
+                if (total === 0) {
                     done();
                 }
             });
@@ -126,7 +131,7 @@ module.exports = function (grunt) {
                 }
 
                 total--;
-                if (total == 0) {
+                if (total === 0) {
                     done();
                 }
             });
@@ -157,7 +162,7 @@ module.exports = function (grunt) {
 
         conductas = conductas
             .filter(function (s) {
-                return s != "";
+                return s !== "";
             })
             .filter(onlyUnique)
             .sort()
@@ -189,7 +194,7 @@ module.exports = function (grunt) {
 
         mercados = mercados
             .filter(function (s) {
-                return s != "";
+                return s !== "";
             })
             .filter(onlyUnique)
             .sort()

@@ -1,3 +1,4 @@
+/*jslint node: true*/
 var checkJuridica = [
     "S.A.",
     "S.A",
@@ -43,7 +44,7 @@ var mercados = {
     "Tabaco": 99999999,
     "Telecomunicaciones": 99999999,
     "Transportes": 99999999,
-    "Vehículos motorizados,repuestos, partes y piezas.": 99999999,
+    "Vehículos motorizados,repuestos, partes y piezas.": 99999999
 };
 var conductas = {
     "Abuso de posicion de dominio: Discriminaciones arbitrarias": 38,

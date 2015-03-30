@@ -1,4 +1,4 @@
-/* global: require */
+/*jslint node: true, plusplus: true*/
 var express = require('express');
 var fs = require('fs');
 var request = require('request');
@@ -11,13 +11,17 @@ var path = require("path");
 var exports = module.exports = {};
 
 var extractTds = function ($, field, text, causa) {
+    'use strict';
+
     var elementos = [],
-        tds = $("tr:contains(" + text + ")")
+        tds;
+    tds = $("tr:contains(" + text + ")")
         .children()
-        .last().find("td");
+        .last()
+        .find("td");
     if (tds.length > 0) {
         elementos = tds.map(function () {
-            return $(this).text()
+            return $(this).text();
         }).get();
     } else {
         elementos = causa[field].split('\r\n');
@@ -30,41 +34,42 @@ var extractTds = function ($, field, text, causa) {
 
 
 exports.download = function (id, folder, download, done) {
+    'use strict';
 
     var url_base = "http://www.tdlc.cl",
         url = url_base + "/Portal.Base/Web/VerContenido.aspx?ID=" + id + "&GUID=",
         files_requested = 0,
         fields = [
-           'rol',
-           'caratula',
-           'fecha',
-           'estado',
-           'mercados',
-           'conductas',
-           'demandantes',
-           'demandados',
-           'demanda',
-           'contestaciones',
-           'informes',
-           'documentos_relevantes',
-           'auto_prueba',
-           'obs_prueba',
-           'vista',
-           'presentaciones',
-           'escritos',
-           'resoluciones'
-       ],
+            'rol',
+            'caratula',
+            'fecha',
+            'estado',
+            'mercados',
+            'conductas',
+            'demandantes',
+            'demandados',
+            'demanda',
+            'contestaciones',
+            'informes',
+            'documentos_relevantes',
+            'auto_prueba',
+            'obs_prueba',
+            'vista',
+            'presentaciones',
+            'escritos',
+            'resoluciones'
+        ],
         field_files = [
-           'demanda',
-           'contestaciones',
-           'informes',
-           'auto_prueba',
-           'obs_prueba',
-           'vista',
-           'presentaciones',
-           'escritos',
-           'resoluciones',
-           'documentos_relevantes'
+            'demanda',
+            'contestaciones',
+            'informes',
+            'auto_prueba',
+            'obs_prueba',
+            'vista',
+            'presentaciones',
+            'escritos',
+            'resoluciones',
+            'documentos_relevantes'
         ];
 
 
@@ -73,12 +78,9 @@ exports.download = function (id, folder, download, done) {
     }
 
     function checkFinished() {
-        if (files_requested == 0) {
+        if (files_requested === 0) {
             setTimeout(function () {
-                if (files_requested == 0) {
-                    //console.info("Terminamos con " + id);
-                    done();
-                }
+                done();
             }, 500);
         }
     }
@@ -97,20 +99,22 @@ exports.download = function (id, folder, download, done) {
 
         causa = $(".causa").map(function () {
 
-            // Let's store the data we filter into a variable so we can easily see what's going on.
-
             var causa = {};
             $(this).find("tbody").children().each(function (i) {
                 //console.info(children.length);
 
                 if (field_files.indexOf(fields[i]) > -1) {
-                    causa[fields[i]] = $(this).children().last().find("a").map(function () {
+                    causa[fields[i]] = $(this)
+                        .children()
+                        .last()
+                        .find("a")
+                        .map(function () {
                             var href = $(this).attr("href");
                             return href.indexOf(".pdf") > -1 || href.indexOf(".mp3") > -1 || href.indexOf(".doc") > -1 ? href : null;
                         })
                         .get()
                         .filter(function (s) {
-                            return s != null
+                            return s !== null;
                         });
 
                     if (download) {

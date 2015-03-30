@@ -1,4 +1,4 @@
-/*global module, require, console*/
+/*jslint node: true*/
 var fs = require("fs"),
     moduloEscritos = require("./escritos"),
     moduloResoluciones = require("./resoluciones"),

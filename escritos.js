@@ -1,3 +1,4 @@
+/*jslint node: true, plusplus: true*/
 var fuzzysearch = require("fuzzysearch"),
     constantes = require("./constantes"),
     moduloFiles = require("./files"),
@@ -8,14 +9,15 @@ var alias = constantes.alias;
 
 
 var limpiarNeedle = function (needle, replaceJuridica) {
-    var replaceJuridica = replaceJuridica === false ? false : true,
-        idx = needle.toLocaleLowerCase().indexOf("parte");
+    'use strict';
+    replaceJuridica = replaceJuridica === false ? false : true;
+    var idx = needle.toLocaleLowerCase().indexOf("parte");
 
-    if (idx != -1) {
+    if (idx !== -1) {
         needle = needle.substr(0, idx);
     }
     idx = needle.toLocaleLowerCase().indexOf("part");
-    if (idx != -1) {
+    if (idx !== -1) {
         needle = needle.substr(0, idx);
     }
 
@@ -36,11 +38,12 @@ var limpiarNeedle = function (needle, replaceJuridica) {
 };
 
 var encontrarParte = function (candidato, partes) {
+    'use strict';
     var needle = limpiarNeedle(candidato).toLowerCase();
 
     var prts = partes.filter(function (haystack) {
         var idx = haystack.toLocaleLowerCase().indexOf(needle);
-        if (idx != -1) {
+        if (idx !== -1) {
             return true;
         }
 
@@ -87,7 +90,7 @@ var extraerEscritos = function (causa) {
             if (/[0-9]{2}-[0-9]{2}-[0-9]{4}/.test(s) || /[0-9]{2} [0-9]{2} [0-9]{4}/.test(s)) {
                 result.fecha = s.substr(0, 10);
                 resto = s.substr(10);
-            } else if (/[0-9]{2}-[0-9]{2}-[0-9]{2}/.test(s) || /[0-9]{2} [0-9]{2} [0-9]{2}/.test(s)  || /[0-9]{2}\.[0-9]{2}\.[0-9]{2}/.test(s)) {
+            } else if (/[0-9]{2}-[0-9]{2}-[0-9]{2}/.test(s) || /[0-9]{2} [0-9]{2} [0-9]{2}/.test(s) || /[0-9]{2}\.[0-9]{2}\.[0-9]{2}/.test(s)) {
                 result.fecha = s.substr(0, 6);
                 result.fecha += "20" + s.substr(6, 2);
                 resto = s.substr(8);

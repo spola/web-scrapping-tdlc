@@ -1,8 +1,10 @@
+/*jslint node: true*/
 var constantes = require("./constantes"),
     conductasBD = constantes.conductas;
 
 
 var extract = function (conductas) {
+    'use strict';
     return conductas.map(function (s) {
 
         var conducta = conductasBD[s || "Ninguna"];
