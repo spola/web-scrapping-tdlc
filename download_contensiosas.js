@@ -73,8 +73,13 @@ exports.download = function (id, folder, download, done) {
         ];
 
 
-    if (!fs.existsSync(folder + id + "/")) {
-        fs.mkdirSync(folder + id + "/");
+    try {
+        if (!fs.existsSync(folder + id + "/")) {
+            fs.mkdirSync(folder + id + "/");
+        }
+    } catch (e) {
+        done(e);
+        return;
     }
 
     function checkFinished() {
