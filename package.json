@@ -9,6 +9,7 @@
         "cheerio": "latest",
         "grunt": "^0.4.5",
         "grunt-concat-json": "0.0.6",
-        "path": "^0.11.14"
+        "path": "^0.11.14",
+        "fuzzysearch": "latest"
     }
 }
