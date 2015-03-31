@@ -3,7 +3,7 @@
 var fs = require("fs"),
     log = require("./log.js").log,
     constantes = require("./constantes"),
-    RUTA = constantes.ruta;
+    RUTA = constantes.ruta + constantes.output;
 
 (function (module, require) {
     "use strict";

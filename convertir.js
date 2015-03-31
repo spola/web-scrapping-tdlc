@@ -8,7 +8,7 @@ var fs = require("fs"),
     moduloConductas = require("./conductas.js"),
     moduloProcedimiento = require("./procedimiento.js"),
     constantes = require("./constantes"),
-    RUTA = constantes.ruta;
+    RUTA = constantes.ruta + constantes.output;
 
 module.exports = function (grunt, NUMERO, done) {
     'use strict';
@@ -56,7 +56,7 @@ module.exports = function (grunt, NUMERO, done) {
 
 
 
-    fs.writeFile('test/output/' + NUMERO + '.json', JSON.stringify(causa, null, 4), function (err) {
+    fs.writeFile(RUTA + NUMERO + '.out.json', JSON.stringify(causa, null, 4), function (err) {
         if (err) {
             console.error(err);
         }
