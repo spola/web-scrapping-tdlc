@@ -3,7 +3,11 @@
 
 var convertir = require("./convertir.js"),
     path = require("path"),
-    fs = require("fs");
+    fs = require("fs"),
+    constantes = require("./constantes"),
+    root = constantes.ruta,
+    output = root + constantes.output,
+    lista = root + "contensiosas.txt";
 
 module.exports = function (grunt) {
     'use strict';
@@ -14,7 +18,7 @@ module.exports = function (grunt) {
     grunt.registerTask('default', function () {
         require("./log.js").reset();
 
-        var contenido = grunt.file.read("/Desarrollo/tdlc-causas/test/contensiosas.txt"),
+        var contenido = grunt.file.read(lista),
             ids = contenido.split("\n"),
             done = this.async();
 
@@ -39,7 +43,7 @@ module.exports = function (grunt) {
             return str.indexOf(suffix, str.length - suffix.length) !== -1;
         }
 
-        grunt.file.recurse("/Desarrollo/tdlc-wordpress/contensiosas/", function (abspath, rootdir, subdir, filename) {
+        grunt.file.recurse(root, function (abspath, rootdir, subdir, filename) {
             if (!grunt.file.isFile(abspath)) {
                 return;
             }
@@ -49,17 +53,14 @@ module.exports = function (grunt) {
 
             archivos.push(Number(path.basename(abspath, ".json")));
         });
-        //console.info(archivos);
 
         data = archivos.join('\n');
-        grunt.file.write("/Desarrollo/tdlc-causas/test/contensiosas.original.txt", data);
-        grunt.file.write("/Desarrollo/tdlc-causas/test/contensiosas.txt", data);
+        grunt.file.write(lista, data);
     });
 
     grunt.registerTask("descargar-contensiosa", function () {
-        var destino = "/Desarrollo/tdlc-wordpress/contensiosas/",
-            download = require("./download_contensiosas.js").download,
-            contenido = grunt.file.read("/Desarrollo/tdlc-causas/test/contensiosas.txt"),
+        var download = require("./download_contensiosas.js").download,
+            contenido = grunt.file.read(lista),
             ids = contenido.split("\n"),
             total = ids.length,
             done = this.async();
@@ -69,7 +70,7 @@ module.exports = function (grunt) {
         //ids = [1533];
         ids.forEach(function (id) {
             //console.info("downloading " + id);
-            download(id, destino, false, function (e) {
+            download(id, output, false, function (e) {
                 if (e) {
                     console.error(id);
                     console.error(e);
@@ -84,19 +85,18 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask("descargar-contensiosa-json", function () {
-        var destino = "/Desarrollo/tdlc-wordpress/contensiosas/",
-            download = require("./download_contensiosas.js").download,
-            contenido = grunt.file.read("/Desarrollo/tdlc-causas/test/contensiosas.txt"),
+        var download = require("./download_contensiosas.js").download,
+            contenido = grunt.file.read(lista),
             ids = contenido.split("\n"),
             total = ids.length,
             done = this.async();
 
         //ids = ids.slice(0, 10);
         //ids = [1409, 1428, 1456, 1458, 1517, 1533, 1547];
-        ids = [3947];
+        //ids = [3947];
         ids.forEach(function (id) {
             //console.info("downloading " + id);
-            download(id, destino, false, function (e) {
+            download(id, output, false, function (e) {
                 if (e) {
                     console.error(id);
                     console.error(e);
@@ -111,9 +111,8 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask("descargar-contensiosa-files", function () {
-        var destino = "/Desarrollo/tdlc-wordpress/contensiosas/",
-            download = require("./download_contensiosas_archivos.js").download,
-            contenido = grunt.file.read("/Desarrollo/tdlc-causas/test/contensiosas.txt"),
+        var download = require("./download_contensiosas_archivos.js").download,
+            contenido = grunt.file.read(lista),
             ids = contenido.split("\n"),
             total = ids.length,
             done = this.async();
@@ -122,9 +121,9 @@ module.exports = function (grunt) {
         //ids = [1409, 1428, 1456, 1458, 1517, 1533, 1547];
         //ids = [3947];
         ids.forEach(function (id) {
-            var json = grunt.file.readJSON(destino + id + ".json");
+            var json = grunt.file.readJSON(output + id + ".json");
             //console.info("downloading " + id);
-            download(id, json, destino, function (e) {
+            download(id, json, output, function (e) {
                 if (e) {
                     console.error(id);
                     console.error(e);
@@ -137,12 +136,10 @@ module.exports = function (grunt) {
             });
         });
     });
-
     grunt.registerTask("generar-conductas", function () {
         var log = require("./log.js"),
-            destino = "/Desarrollo/tdlc-wordpress/contensiosas/",
             download = require("./download_contensiosas_archivos.js").download,
-            contenido = grunt.file.read("/Desarrollo/tdlc-causas/test/contensiosas.txt"),
+            contenido = grunt.file.read(lista),
             ids = contenido.split("\n"),
             total = ids.length,
             conductas = [];
@@ -151,7 +148,7 @@ module.exports = function (grunt) {
         //ids = [1409, 1428, 1456, 1458, 1517, 1533, 1547];
         //ids = [3947];
         ids.forEach(function (id) {
-            var json = grunt.file.readJSON(destino + id + ".json");
+            var json = grunt.file.readJSON(output + id + ".json");
             //console.info(json.conductas)
             conductas = conductas.concat(json.conductas);
         });
@@ -172,9 +169,8 @@ module.exports = function (grunt) {
     });
     grunt.registerTask("generar-mercados", function () {
         var log = require("./log.js"),
-            destino = "/Desarrollo/tdlc-wordpress/contensiosas/",
             download = require("./download_contensiosas_archivos.js").download,
-            contenido = grunt.file.read("/Desarrollo/tdlc-causas/test/contensiosas.txt"),
+            contenido = grunt.file.read(lista),
             ids = contenido.split("\n"),
             total = ids.length,
             mercados = [];
@@ -183,7 +179,7 @@ module.exports = function (grunt) {
         //ids = [1409, 1428, 1456, 1458, 1517, 1533, 1547];
         //ids = [3947];
         ids.forEach(function (id) {
-            var json = grunt.file.readJSON(destino + id + ".json");
+            var json = grunt.file.readJSON(output + id + ".json");
             //console.info(json.conductas)
             mercados = mercados.concat(json.mercados);
         });

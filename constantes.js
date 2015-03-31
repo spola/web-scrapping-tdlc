@@ -96,5 +96,6 @@ module.exports = {
     procedimientos: procedimientos,
     formasInicio: formasInicio,
     tipoParte: tipoParte,
-    ruta: "/Desarrollo/tdlc-wordpress/contensiosas/"
+    ruta: "/Desarrollo/tdlc-node/web-scrapping-tdlc/",
+    output: 'output/'
 };
