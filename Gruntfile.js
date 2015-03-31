@@ -96,7 +96,7 @@ module.exports = function (grunt) {
         //ids = [3947];
         ids.forEach(function (id) {
             //console.info("downloading " + id);
-            download(id, output, false, function (e) {
+            download(id.trim(), output, false, function (e) {
                 if (e) {
                     console.error(id);
                     console.error(e);
