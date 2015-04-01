@@ -1,4 +1,4 @@
-/*jslint node: true, plusplus: true*/
+/*jslint node: true, plusplus: true, vars: true*/
 var fuzzysearch = require("fuzzysearch"),
     constantes = require("./constantes"),
     moduloFiles = require("./files"),
@@ -53,7 +53,8 @@ var encontrarParte = function (candidato, partes) {
 };
 
 function encontrarParteAlias(candidato, partes) {
-
+    'use strict';
+    
     candidato = limpiarNeedle(candidato);
 
     if (alias[candidato]) {
@@ -66,51 +67,64 @@ function encontrarParteAlias(candidato, partes) {
     //    }
     return parte;
 }
+var mapArchivoEscrito = function(causa) {
+    return function(s) {
+        var result = {
+            file: s//.replace(causa.numero, causa.numero)
+        };
+        //Martillazos
+        s = s.replace("/DocumentosMultiples/C2", "/DocumentosMultiples/C");
+        s = s.replace("/DocumentosMultiples/vC", "/DocumentosMultiples/C");
+
+        var resto;
+        s = s.substr(21)
+            .replace(/ +/g, ' ')
+            .replace(causa.rol, '')
+            .replace(causa.rol.toLowerCase(), '')
+            .replace(causa.rol.replace(/ +/g, ''), '')
+            .replace(causa.rol.toLowerCase().replace(/ +/g, ''), '')
+            .trim();
+        if (/[0-9]{2}-[0-9]{2}-[0-9]{4}/.test(s) || /[0-9]{2} [0-9]{2} [0-9]{4}/.test(s)) {
+            result.fecha = s.substr(0, 10);
+            resto = s.substr(10);
+        } else if (/[0-9]{2}-[0-9]{2}-[0-9]{2}/.test(s) || /[0-9]{2} [0-9]{2} [0-9]{2}/.test(s) || /[0-9]{2}\.[0-9]{2}\.[0-9]{2}/.test(s)) {
+            result.fecha = s.substr(0, 6);
+            result.fecha += "20" + s.substr(6, 2);
+            resto = s.substr(8);
+        } else if (/[0-9]{1}-[0-9]{2}-[0-9]{4}/.test(s) || /[0-9]{2} [0-9]{2} [0-9]{4}/.test(s)) {
+            result.fecha = s.substr(0, 9);
+            resto = s.substr(10);
+        }
+        try {
+            result.extension = resto.substr(resto.length - 3);
+            result.parte = resto.substr(0, resto.length - 4);
+        } catch (e) {
+            console.error("-->" + s);
+            console.error("-->" + resto);
+            throw e;
+        }
+
+        return result;
+    };
+};
 
 var extraerEscritos = function (causa) {
+    'use strict';
+    
     var partes = causa.demandantes.concat(causa.demandados);
     var result = causa.escritos
         .filter(function (s) {
             if (moduloFiles.fileSize(s, causa.numero) < 2000) {
                 return false;
-            } else return true;
-        })
-        .map(function (s) {
-            var result = {
-                file: s.replace(causa.numero, causa.numero)
-            };
-            var resto;
-            s = s.substr(21)
-                .replace(/ +/g, ' ')
-                .replace(causa.rol, '')
-                .replace(causa.rol.toLowerCase(), '')
-                .replace(causa.rol.replace(/ +/g, ''), '')
-                .replace(causa.rol.toLowerCase().replace(/ +/g, ''), '')
-                .trim();
-            if (/[0-9]{2}-[0-9]{2}-[0-9]{4}/.test(s) || /[0-9]{2} [0-9]{2} [0-9]{4}/.test(s)) {
-                result.fecha = s.substr(0, 10);
-                resto = s.substr(10);
-            } else if (/[0-9]{2}-[0-9]{2}-[0-9]{2}/.test(s) || /[0-9]{2} [0-9]{2} [0-9]{2}/.test(s) || /[0-9]{2}\.[0-9]{2}\.[0-9]{2}/.test(s)) {
-                result.fecha = s.substr(0, 6);
-                result.fecha += "20" + s.substr(6, 2);
-                resto = s.substr(8);
+            } else {
+                return true;
             }
-            try {
-                result.extension = resto.substr(resto.length - 3);
-                result.parte = resto.substr(0, resto.length - 4);
-            } catch (e) {
-                console.error("-->" + s);
-                console.error("-->" + resto);
-                console.error("-->" + /[0-9]{2} [0-9]{2} [0-9]{4}/.test(s));
-                throw e;
-            }
-
-            return result;
         })
+        .map(mapArchivoEscrito(causa))
         .map(function (e) {
             e.parte = encontrarParteAlias(e.parte, partes)[0];
             if (!e.parte || e.parte == "") {
-                log(causa.numero + "\t" + "SP" + "\t" + e.file);
+                //log(causa.numero + "\t" + "SP" + "\t" + e.file);
                 return null;
             }
             return e;
@@ -130,21 +144,9 @@ var extraerPartes = function (causa) {
         demandados: []
     };
     causa.escritos
-        .map(function (s) {
-            var resto;
-            s = s.substr(21)
-                .replace(causa.rol, '')
-                .replace(causa.rol.toLowerCase(), '')
-                .replace(causa.rol.replace(/ +/g, ''), '')
-                .replace(causa.rol.toLowerCase().replace(/ +/g, ''), '')
-                .trim();
-            if (/[0-9]{2}-[0-9]{2}-[0-9]{4}/.test(s)) {
-                resto = s.substr(10);
-            } else if (/[0-9]{2}-[0-9]{2}-[0-9]{2}/.test(s) || /[0-9]{2} [0-9]{2} [0-9]{2}/.test(s)) {
-                resto = s.substr(8);
-            }
-            return resto.substr(0, resto.length - 4);
-        }).map(function (e) {
+        .map(mapArchivoEscrito(causa))
+        .map(function (e) {
+            e = e.parte;
             var mialias = alias[e];
             if (mialias) return mialias;
             e = limpiarNeedle(e, false);
