@@ -1,9 +1,12 @@
+/*jslint node: true*/
 var fs = require("fs");
 module.exports = {
     reset: function () {
+        'use strict';
         fs.writeFileSync("log.txt", "");
     },
     log: function (line) {
-        fs.appendFileSync("log.txt", line + "\n");
+        'use strict';
+        fs.appendFile("log.txt", line + "\n");
     }
 };
