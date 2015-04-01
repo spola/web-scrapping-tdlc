@@ -19,7 +19,11 @@ var mercados = {
     "Combustibles, lubricantes y derivados del petróleo": 99999999,
     "Computación, programas,  equipos e insumos computacionales": 99999999,
     "Concesiones del Estado": 99999999,
+    "Concesiones": 99999999,
+    
     "Construcción y materiales de construcción.": 99999999,
+    "Materiales de construcción": 99999999,
+    
     "Editorial": 99999999,
     "Educación": 99999999,
     "Eléctrico": 99999999,
@@ -32,12 +36,14 @@ var mercados = {
     "Minería": 99999999,
     "Ninguna": 99999999,
     "Obras Sanitarias": 99999999,
+    "Otros": 99999999,
     "Otras actividades de servicios": 99999999,
     "Otros bienes de consumo": 99999999,
     "Portuario/aeroportuario": 99999999,
     "Prensa escrita": 99999999,
     "Recolección, transporte y disposición de residuos": 99999999,
     "Retail: comercialización al por menor en supermercados y tiendas por departamentos.": 99999999,
+    "Retail": 99999999,
     "Ropa y calzado": 99999999,
     "Salud y medicina": 99999999,
     "Silvoagropecuario: Agricultura, ganadería, forestal": 99999999,
@@ -47,6 +53,7 @@ var mercados = {
     "Vehículos motorizados,repuestos, partes y piezas.": 99999999
 };
 var conductas = {
+    "Abuso de Posición Dominante": 99999999,
     "Abuso de posicion de dominio: Discriminaciones arbitrarias": 38,
     "Abuso de posicion de dominio: abuso de poder de compra": 99999999,
     "Abuso de posicion de dominio: negativa injustificada a contratar": 99999999,
@@ -58,11 +65,15 @@ var conductas = {
     "Actos de competencia desleal": 99999999,
     "Acuerdos o prácticas concertadas": 34,
     "Barreras estratégicas a la entrada o expansión de competidores": 10244,
+    "Barreras a la Entrada": 10244,
     "Incumplimiento de Instrucción o de Resolución": 10245,
+    "Incumplimiento de Resolución": 10245,
     "Ninguna": 99999999,
     "Operaciones de Concentración": 99999999,
     "Prácticas predatorias y ventas bajo costo": 99999999,
-    "Restricciones verticales con el objeto de excluir competidores": 99999999
+    "Colusión": 99999999,
+    "Restricciones verticales con el objeto de excluir competidores": 99999999,
+    "Negativa de Contratación": 99999999
 };
 var procedimientos = {
     "NC": "2",
