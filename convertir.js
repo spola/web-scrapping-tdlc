@@ -8,7 +8,25 @@ var fs = require("fs"),
     moduloConductas = require("./conductas.js"),
     moduloProcedimiento = require("./procedimiento.js"),
     constantes = require("./constantes"),
+    log = require("./log.js"),
     RUTA = constantes.ruta + constantes.output;
+
+function validar(causa) {
+    'use strict';
+    
+    if (causa.conductas.length === 0) {
+        log.log(causa.rol + " no posee conductas");
+    }
+    if (causa.mercados.length === 0) {
+        log.log(causa.rol + " no posee mercados");
+    }
+    if (causa.demandantes.length === 0) {
+        log.log(causa.rol + " no posee demandantes");
+    }
+    if (causa.demandados.length === 0) {
+        log.log(causa.rol + " no posee demandados");
+    }
+}
 
 module.exports = function (grunt, NUMERO, done) {
     'use strict';
@@ -22,9 +40,10 @@ module.exports = function (grunt, NUMERO, done) {
     causa.numero = NUMERO;
     //Acá se chequea que si la causa no tiene partes, se usan las que salgan de los escritos
     if ((cantDemandantes === 0 && cantDemandados === 0) || (cantDemandantes === 1 && causa.demandantes[0] === "" && cantDemandados === 1 && causa.demandados[0] === "")) {
-        partes = moduloEscritos.extraerPartes(causa);
-        causa.demandantes = partes.demandantes;
-        causa.demandados = partes.demandados;
+        //partes = moduloEscritos.extraerPartes(causa);
+       // causa.demandantes = partes.demandantes;
+        //causa.demandados = partes.demandados;
+        log.log(causa.rol + " no posee partes");
     }
 
     escritos = moduloEscritos.extraerEscritos(causa);
@@ -54,7 +73,7 @@ module.exports = function (grunt, NUMERO, done) {
     causa.conductas = moduloConductas.extract(causa.conductas);
 
 
-
+    validar(causa);
 
     fs.writeFile(RUTA + NUMERO + '.out.json', JSON.stringify(causa, null, 4), function (err) {
         if (err) {
