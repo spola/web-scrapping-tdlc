@@ -25,6 +25,8 @@ module.exports = function (grunt) {
         //ids = ids.slice(0, 10);
         //ids = [2237];
         ids.forEach(function (id) {
+            id = id.trim();
+            if (isNaN(id)) { return; }
             try {
                 convertir(grunt, id, done);
             } catch (e) {
@@ -93,7 +95,7 @@ module.exports = function (grunt) {
 
         //ids = ids.slice(0, 10);
         //ids = [1409, 1428, 1456, 1458, 1517, 1533, 1547];
-        //ids = [3947];
+        //ids = ["4502", "4528", "4504" ];
         ids.forEach(function (id) {
             //console.info("downloading " + id);
             download(id.trim(), output, false, function (e) {
@@ -119,8 +121,10 @@ module.exports = function (grunt) {
 
         //ids = ids.slice(0, 10);
         //ids = [1409, 1428, 1456, 1458, 1517, 1533, 1547];
-        //ids = [3947];
+        //ids = ["4502", "4528", "4504", "4215" ];
         ids.forEach(function (id) {
+            if (isNaN(id)) {return; }
+            id = id.trim();
             var json = grunt.file.readJSON(output + id + ".json");
             //console.info("downloading " + id);
             download(id, json, output, function (e) {
