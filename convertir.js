@@ -38,6 +38,8 @@ module.exports = function (grunt, NUMERO, done) {
         cantDemandados = causa.demandados.length;
 
     causa.numero = NUMERO;
+    causa.numRol = causa.rol.substr(2, 3);
+    causa.eraRol = causa.rol.substr(6, 2);
     //Acá se chequea que si la causa no tiene partes, se usan las que salgan de los escritos
     if ((cantDemandantes === 0 && cantDemandados === 0) || (cantDemandantes === 1 && causa.demandantes[0] === "" && cantDemandados === 1 && causa.demandados[0] === "")) {
         //partes = moduloEscritos.extraerPartes(causa);
