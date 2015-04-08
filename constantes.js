@@ -13,7 +13,9 @@ var alias = {
 };
 var mercados = {
     "Actividades de asociaciones (empresariales, profesionales, sindicales, etc)": 99999999,
-    "Alimentos y Bebidas": 99999999,
+    
+    "Alimentos y Bebidas": 53068,
+    
     "Artículos deportivos": 99999999,
     "Artículos electrónicos, audio y video.": 99999999,
     "Combustibles, lubricantes y derivados del petróleo": 99999999,
@@ -36,7 +38,6 @@ var mercados = {
     "Minería": 99999999,
     "Ninguna": 99999999,
     "Obras Sanitarias": 99999999,
-    "Otros": 99999999,
     "Otras actividades de servicios": 99999999,
     "Otros bienes de consumo": 99999999,
     "Portuario/aeroportuario": 99999999,
@@ -48,12 +49,25 @@ var mercados = {
     "Salud y medicina": 99999999,
     "Silvoagropecuario: Agricultura, ganadería, forestal": 99999999,
     "Tabaco": 99999999,
-    "Telecomunicaciones": 99999999,
     "Transportes": 99999999,
-    "Vehículos motorizados,repuestos, partes y piezas.": 99999999
+    "Abuso de poder de compra": 99999999,
+    "Vehículos motorizados,repuestos, partes y piezas.": 99999999,
+    
+    
+    "Comercio: Supermercados":                          53069,
+    "Comercio: otros mercados":                         53070,
+    "Industria":                                        53071,
+    "Industria: Alimenticia":                           53072,
+    "Industria: Forestal":                              53073,
+    "Medios de comunicación":                           53074,
+    "Otros":                                            53075,
+    "Telecomunicaciones":                               53066,
+    "Transporte marítimo: Servicios Navieros":          53077,
+    "Transporte terrestre":                             53078
 };
 var conductas = {
-    "Abuso de Posición Dominante": 99999999,
+    "Abuso de Posición Dominante": 10246,
+    "Abuso de posición dominante": 10246,
     "Abuso de posicion de dominio: Discriminaciones arbitrarias": 38,
     "Abuso de posicion de dominio: abuso de poder de compra": 99999999,
     "Abuso de posicion de dominio: negativa injustificada a contratar": 99999999,
@@ -62,18 +76,41 @@ var conductas = {
     "Abuso de posición de dominio: otras prácticas explotativas": 99999999,
     "Abuso de posición de dominio: ventas atadas": 99999999,
     "Actos de autoridad": 99999999,
+    "Abuso de poder de compra": 99999999,
     "Actos de competencia desleal": 99999999,
     "Acuerdos o prácticas concertadas": 34,
     "Barreras estratégicas a la entrada o expansión de competidores": 10244,
     "Barreras a la Entrada": 10244,
     "Incumplimiento de Instrucción o de Resolución": 10245,
+    "Incumplimiento condiciones": 99999999,
     "Incumplimiento de Resolución": 10245,
     "Ninguna": 99999999,
     "Operaciones de Concentración": 99999999,
     "Prácticas predatorias y ventas bajo costo": 99999999,
     "Colusión": 99999999,
+    "Colusión en licitación": 99999999,
     "Restricciones verticales con el objeto de excluir competidores": 99999999,
-    "Negativa de Contratación": 99999999
+    "Negativa de Contratación": 99999999,
+    "Precios predatorios": 99999999,
+    "estrangulamiento de márgenes": 99999999,
+    "competencia desleal": 99999999,
+    "Medida Prejudicial": 99999999,
+    "Negativa de venta": 99999999,
+    
+    
+"Abuso de Posición Dominante":                              10246,                    
+"Abuso de posición dominante":                              10246,
+"Abuso de poder de compra":                                 37,
+"Colusión":                                                 10247,
+"Colusión en licitación":                                   10248,    
+"Incumplimiento condiciones":                               10249,        
+"Incumplimiento de Instrucción o de Resolución":            10245,                            
+"Medida Prejudicial":                                       10250,
+"Negativa de venta":                                        10251,
+"Precios predatorios":                                      10252,
+"competencia desleal":                                      10253,
+"estrangulamiento de márgenes":                             10254       
+    
 };
 var procedimientos = {
     "NC": "2",
