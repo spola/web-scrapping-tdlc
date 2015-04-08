@@ -8,5 +8,10 @@ module.exports = {
     log: function (line) {
         'use strict';
         fs.appendFile("log.txt", line + "\n");
+        //console.info(line);
+    },
+    logSync: function (line) {
+        'use strict';
+        fs.appendFileSync("log.txt", line + "\n");
     }
 };
