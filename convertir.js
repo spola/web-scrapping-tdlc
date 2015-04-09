@@ -48,8 +48,8 @@ module.exports = function (grunt, NUMERO, done) {
         log.log(causa.rol + " no posee partes");
     }
 
-    escritos = moduloEscritos.extraerEscritos(causa);
-    resoluciones = moduloResoluciones.extraer(causa, escritos);
+    //escritos = moduloEscritos.extraerEscritos(causa);
+    resoluciones = moduloResoluciones.extraer(causa/*, escritos*/);
 
     causa.escritos = moduloFiles.extract(causa.escritos, causa.numero, false);
     //console.error(causa.escritos);
