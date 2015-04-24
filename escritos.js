@@ -124,7 +124,7 @@ var extraerEscritos = function (causa) {
         .map(function (e) {
             e.parte = encontrarParteAlias(e.parte, partes)[0];
             if (!e.parte || e.parte == "") {
-                //log(causa.numero + "\t" + "SP" + "\t" + e.file);
+                log(causa.numero + "\t" + "SP" + "\t" + e.file);
                 return null;
             }
             return e;

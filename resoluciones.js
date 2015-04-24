@@ -11,7 +11,10 @@ var remove = function (arr, item) {
 };
 
 var extraer = function (causa) {
-    var result = {},
+    var moduloFiles = require("./files.js"),
+        constantes = require("./constantes"),
+        log = require("./log.js"),
+        result = {},
         escritos = causa.escritos;
 
     result.resoluciones = [];
@@ -30,12 +33,17 @@ var extraer = function (causa) {
         esc.forEach(function (e) {
             remove(escritos, e);
         });
-
-        result.resoluciones.push({
-            fecha: fecha,
-            escritos: esc,
-            file: s.replace("DocumentosMultiples", causa.numero)
-        });
+        
+        var f = s.replace("DocumentosMultiples", causa.numero);
+        if(moduloFiles.checkFile(constantes.ruta + constantes.output + f)) {
+            result.resoluciones.push({
+                fecha: fecha,
+                escritos: esc,
+                file: f
+            });
+        } else {
+            log.logSync(causa.numero + "\t" + "404" + "\t" + f);
+        }
     });
 
     return result;

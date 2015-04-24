@@ -23,7 +23,7 @@ module.exports = function (grunt) {
             done = this.async();
 
         //ids = ids.slice(0, 10);
-        ids = ['4215'];
+        //ids = ['4215'];
         ids.forEach(function (id) {
             id = id.trim();
             if (isNaN(id)) {
@@ -31,6 +31,7 @@ module.exports = function (grunt) {
             }
             try {
                 convertir(grunt, id, done);
+                console.info("Convertido " + id);
             } catch (e) {
                 console.error(id);
                 console.error(e);
@@ -298,13 +299,15 @@ module.exports = function (grunt) {
 
         chekeo = function (causa, tipo) {
             return function (s) {
-                if (!files.checkFile(s)) {
-                    //log.logSync(s);
+                log.logSync(s);
+                var file = s.substr("/DocumentosMultiples/".length);
+                if (!files.checkFile( "./output/" + causa.numero + "/" + file)) {
+                    
                     lineas.push(
                         causa.numero + ";" +
                         causa.rol + ";" +
                         tipo + ";" +
-                        s.substr("/DocumentosMultiples/".length)
+                        file
                     );
                 }
             }
@@ -318,23 +321,66 @@ module.exports = function (grunt) {
             var causa = grunt.file.readJSON(output + id + ".json");
             causa.numero = id;
 
-            log.logSync(
+            /*log.logSync(
                 causa.numero + ";" +
                 causa.rol + ";" +
                 causa.escritos.length + ";" +
                 causa.resoluciones.length + ";" +
                 causa.demanda.length + ";"
             );
-
-
-
+*/
             causa.escritos.forEach(chekeo(causa, "escrito"));
-            causa.resoluciones.forEach(chekeo(causa, "resolución"));
+            causa.resoluciones.forEach(chekeo(causa, "resolución")); 
             causa.demanda.forEach(chekeo(causa, "demanda"));
         });
+        
+        lineas.forEach(function(linea) {
+            log.logSync(linea);
+        });
+    });
+    
+    grunt.registerTask("copiar-escritos", function() {
+         var log = require("./log.js"),
+            files = require("./files.js"),
+            contenido = grunt.file.read(root + "archivos_faltantes.txt"),
+            archivos = contenido.split("\n"),
+            total = archivos.length,
+            mercados = [],
+            chekeo,
+            lineas = [];
+        
+                        var archivos = [],
+            data;
 
-        log.logSync(lineas.join("\n"));
+        function endsWith(str, suffix) {
+            return str.indexOf(suffix, str.length - suffix.length) !== -1;
+        }
+        
+        //This sets up the file finder
+        var finder = require('findit').find(__dirname);
 
+        //This listens for directories found
+        finder.on('directory', function (dir) {
+          console.log('Directory: ' + dir + '/');
+        });
 
+        //This listens for files found
+        finder.on('file', function (file) {
+          console.log('File: ' + file);
+        });
+
+        grunt.file.recurse("/Users/SergioEsteban/Documents/Amilex/tdlc/Escritos/", function (abspath, rootdir, subdir, filename) {
+            if (!grunt.file.isFile(abspath)) {
+                return;
+            }
+            if (!endsWith(abspath, ".json")) {
+                return;
+            }
+
+            archivos.push(Number(path.basename(abspath, ".json")));
+        });
+
+        data = archivos.join('\n');
+        grunt.file.write(lista, data);
     });
 };

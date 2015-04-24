@@ -9,18 +9,27 @@ var checkJuridica = [
 var alias = {
     "FNE": "Fiscalía Nacional Económica",
     "CHILETABACOS": "Compañía Chilena de Tabacos S.A.",
-    "CHILE TABACOS": "Compañía Chilena de Tabacos S.A."
+    "CHILE TABACOS": "Compañía Chilena de Tabacos S.A.",
+    "MOVISTAR": "Telefónica Móviles Chile S.A.",
+    "ENTEL": "Entel PCS Telecomunicaciones S.A.",
+    "CLARO CHILE": "Claro Chile S.A.",
+    "CLARO 1": "Claro Chile S.A.",
+    "CLARO 2": "Claro Chile S.A.",
+    "CLARO": "Claro Chile S.A.",
+    "SCL TERMINAL AEREO DE SANTIAGO": "S.C.L. Terminal Aéreo de Santiago S.A. y otra",
+    "QUIMICA LATINOAMERICANA": "Química Latinoamericana S.A.",
+    "QUIMICA LATINOAMERICA": "Química Latinoamericana S.A.",
 };
 var mercados = {
-    "Actividades de asociaciones (empresariales, profesionales, sindicales, etc)": 99999999,
+    "Actividades de asociaciones (empresariales, profesionales, sindicales, etc)": 22221,
     
-    "Alimentos y Bebidas": 53068,
+    "Alimentos y Bebidas": 22225,
     
     "Artículos deportivos": 99999999,
     "Artículos electrónicos, audio y video.": 99999999,
     "Combustibles, lubricantes y derivados del petróleo": 99999999,
     "Computación, programas,  equipos e insumos computacionales": 99999999,
-    "Concesiones del Estado": 99999999,
+    "Concesiones del Estado": 22222,
     "Concesiones": 99999999,
     
     "Construcción y materiales de construcción.": 99999999,
@@ -33,7 +42,7 @@ var mercados = {
     "Financiero": 99999999,
     "Hoteles y restaurantes": 99999999,
     "Importaciones": 99999999,
-    "Inmobiliario": 99999999,
+    "Inmobiliario": 22211,
     "Maquinarias y otros bienes de capital": 99999999,
     "Minería": 99999999,
     "Ninguna": 99999999,
@@ -49,21 +58,30 @@ var mercados = {
     "Salud y medicina": 99999999,
     "Silvoagropecuario: Agricultura, ganadería, forestal": 99999999,
     "Tabaco": 99999999,
-    "Transportes": 99999999,
+    "Transportes": 22219,
     "Abuso de poder de compra": 99999999,
     "Vehículos motorizados,repuestos, partes y piezas.": 99999999,
     
     
-    "Comercio: Supermercados":                          53069,
-    "Comercio: otros mercados":                         53070,
-    "Industria":                                        53071,
-    "Industria: Alimenticia":                           53072,
-    "Industria: Forestal":                              53073,
-    "Medios de comunicación":                           53074,
-    "Otros":                                            53075,
-    "Telecomunicaciones":                               53066,
-    "Transporte marítimo: Servicios Navieros":          53077,
-    "Transporte terrestre":                             53078
+//Suministros Energía Electrica	22218
+//Seguros	22217
+////Contrato de Distribución	22216
+//Minero	22215
+//Actividad Agropecuaria	22214
+//Bancario y Financiero	22213
+//Sociedades Comerciales	22212
+//Notificación	22210    
+    
+    "Comercio: Supermercados":                          22226,
+    "Comercio: otros mercados":                         22227,
+    "Industria":                                        22228,
+    "Industria: Alimenticia":                           22229,
+    "Industria: Forestal":                              22230,
+    "Medios de comunicación":                           22231,
+    "Otros":                                            22232,
+    "Telecomunicaciones":                               22233,
+    "Transporte marítimo: Servicios Navieros":          22234,
+    "Transporte terrestre":                             22235
 };
 var conductas = {
     "Abuso de Posición Dominante": 10246,
@@ -98,18 +116,19 @@ var conductas = {
     "Negativa de venta": 99999999,
     
     
-"Abuso de Posición Dominante":                              10246,                    
-"Abuso de posición dominante":                              10246,
-"Abuso de poder de compra":                                 37,
-"Colusión":                                                 10247,
-"Colusión en licitación":                                   10248,    
-"Incumplimiento condiciones":                               10249,        
-"Incumplimiento de Instrucción o de Resolución":            10245,                            
-"Medida Prejudicial":                                       10250,
-"Negativa de venta":                                        10251,
-"Precios predatorios":                                      10252,
-"competencia desleal":                                      10253,
-"estrangulamiento de márgenes":                             10254       
+"Abuso de Posición Dominante":                              45,                    
+"Abuso de posición dominante":                              45,
+"Abuso de poder de compra":                                 46,
+"Colusión":                                                 47,
+"Colusión en licitación":                                   48,    
+"Incumplimiento condiciones":                               49,        
+"Incumplimiento de Instrucción o de Resolución":            50,
+    
+"Medida Prejudicial":                                       51,
+"Negativa de venta":                                        52,
+"Precios predatorios":                                      53,
+"competencia desleal":                                      35,
+"estrangulamiento de márgenes":                             54       
     
 };
 var procedimientos = {
@@ -133,8 +152,6 @@ var tipoParte = {
         "demandantes": 45
     }
 };
-
-
 
 module.exports = {
     checkJuridica: checkJuridica,
